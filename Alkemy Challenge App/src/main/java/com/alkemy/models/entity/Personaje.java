@@ -54,6 +54,8 @@ public class Personaje implements Serializable {
         pelicula.getPersonajes().add(this);
     }
 
+    
+
 
  
 

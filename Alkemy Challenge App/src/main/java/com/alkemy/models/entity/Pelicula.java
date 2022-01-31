@@ -48,20 +48,9 @@ public class Pelicula implements Serializable{
     @ManyToMany(mappedBy = "peliculas")
     List <Personaje> personajes;
 
-    
-
-
-
-
-
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", titulo='" + getTitulo() + "'" +
-            ", createAt='" + getCreateAt() + "'" +
-            ", calificacion='" + getCalificacion() + "'" +
-            "}";
+        return this.getTitulo();
     }
     
 

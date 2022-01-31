@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layouts/layout.html :: head"></head>
+
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
@@ -17,6 +19,7 @@
                     <th> Edad </th>
                     <th> Peso </th>
                     <th> Historia </th>
+                    <th> Peliculas </th>
                     <th class="d-flex justify-content-end"> Editar / Eliminar </th>
                 </tr>
             </thead>
@@ -27,12 +30,12 @@
                     <td th:text="${personaje.edad}"></td>
                     <td th:text="${personaje.peso}"></td>
                     <td th:text="${personaje.historia}"></td>
-                    <td class="d-flex justify-content-end gap-2"> <a th:href="@{/characters-form/} + ${personaje.id}"
-                            class="btn btn-primary btn-xs"> Editar </a>
+                    <td th:text="${personaje.peliculas}"></td>
+                    <td class="d-flex justify-content-end gap-2">
+                        <a th:href="@{/characters-form/} + ${personaje.id}" class="btn btn-primary btn-xs"> Editar </a>
                         <a th:href="@{/delete-characters/} + ${personaje.id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar este Personaje?')"> Eliminar </a>
                     </td>
-
                 </tr>
             </tbody>
         </table>
