@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts/layout.html :: head"></head>
+
+<body>
+    <header th:replace="layouts/layout.html :: header"></header>
+
+    <div class="container">
+        <h1 th:text="${titulo}" class="text-warning"></h1>
+        <p>
+            <a th:href="@{/movies-form}" class="btn btn-warning"> Agregar Pelicula</a>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th> id </th>
+                    <th> Titulo </th>
+                    <th> Fecha </th>
+                    <th> Calificacion </th>
+                    <th class="d-flex justify-content-end"> Editar / Eliminar </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pelicula: ${peliculas}">
+                    <td th:text="${pelicula.id}"></td>
+                    <td th:text="${pelicula.titulo}"></td>
+                    <td th:text="${pelicula.createAt}"></td>
+                    <td th:text="${pelicula.calificacion}"></td>
+                    <td class="d-flex justify-content-end gap-2"> <a th:href="@{/movies-form/} + ${pelicula.id}"
+                            class="btn btn-primary btn-xs"> Editar </a>
+                        <a th:href="@{/delete-movie/} + ${pelicula.id}" class="btn btn-danger btn-xs"
+                            onclick="return confirm('¿Estás seguro que querés eliminar esta Pelicula?')"> Eliminar </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <footer th:replace="layouts/layout.html :: footer"></footer>
+
+</body>
+
+</html>

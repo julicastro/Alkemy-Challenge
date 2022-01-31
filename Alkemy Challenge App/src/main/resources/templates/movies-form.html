@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts/layout.html :: head"></head>
+
+<body>
+    <header th:replace="layouts/layout.html :: header"></header>
+
+    <div class="container">
+
+        <h1 th:text="${titulo}" class="text-primary"></h1>      
+
+        <form th:action="@{/movies-form}" th:object="${pelicula}" method="post">
+
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-2">Titulo</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{titulo}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <small th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"
+                        class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-2">Calificacion</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{calificacion}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <small th:if="${#fields.hasErrors('calificacion')}" th:errors="*{calificacion}"
+                        class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-2">Fecha</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{createAt}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <small th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"
+                        class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <input type="submit" th:value="${botonSubmit}" class="btn btn-primary" />
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <footer th:replace="layouts/layout.html :: footer"></footer>
+
+</body>
+
+</html>

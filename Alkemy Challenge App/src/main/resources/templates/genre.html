@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/layout.html :: head"></head>
+<body>
+    <header th:replace="layouts/layout.html :: header"></header>
+
+    <div class="container">
+        <h1 th:text="${titulo}" class="text-info"></h1>
+        <p>
+            <a th:href="@{/genre-form}" class="btn btn-info"> Nuevo Genero</a>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th> id </th>
+                    <th> Nombre </th>
+                    <th class="d-flex justify-content-end"> Editar / Eliminar </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="genero: ${generos}">
+                    <td th:text="${genero.id}"></td>
+                    <td th:text="${genero.nombre}"></td>
+                    <td class="d-flex justify-content-end gap-2"> <a th:href="@{/genre-form/} + ${genero.id}"
+                            class="btn btn-primary btn-xs"> Editar </a>
+                        <a th:href="@{/delete-genre/} + ${genero.id}" class="btn btn-danger btn-xs"
+                            onclick="return confirm('¿Estás seguro que querés eliminar este Genero?')"> Eliminar </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <footer th:replace="layouts/layout.html :: footer"></footer>
+
+</body>
+
+</html>
