@@ -2,12 +2,14 @@ package com.alkemy.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,12 +18,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "peliculas")
 public class Pelicula implements Serializable{
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,50 +45,25 @@ public class Pelicula implements Serializable{
     @NotNull
     private Integer calificacion;
 
-    public Pelicula() {
+    @ManyToMany(mappedBy = "peliculas")
+    List <Personaje> personajes;
+
+    
+
+
+
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", titulo='" + getTitulo() + "'" +
+            ", createAt='" + getCreateAt() + "'" +
+            ", calificacion='" + getCalificacion() + "'" +
+            "}";
     }
-
-
-    public Pelicula(Long id, String titulo, Date createAt, Integer calificacion) {
-        this.id = id;
-        this.titulo = titulo;
-        this.createAt = createAt;
-        this.calificacion = calificacion;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return this.titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Date getCreateAt() {
-        return this.createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Integer getCalificacion() {
-        return this.calificacion;
-    }
-
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
-    }
-
-
+    
 
 
 

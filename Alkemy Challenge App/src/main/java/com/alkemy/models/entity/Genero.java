@@ -1,19 +1,25 @@
 package com.alkemy.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.persistence.JoinColumn;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "generos")
 public class Genero implements Serializable {
 
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,28 +28,9 @@ public class Genero implements Serializable {
     @NotEmpty
     private String nombre;
 
-    public Genero() {
-    }
-
-    public Genero(Long id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    @OneToMany()
+    @JoinColumn(name = "id_genero")
+    private List<Pelicula> peliculas;
+  
 
 }
