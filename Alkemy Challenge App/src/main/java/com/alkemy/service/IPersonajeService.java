@@ -10,5 +10,8 @@ public interface IPersonajeService {
     public Personaje findOne(Long id); 
     public void delete(Long id);
 
+    public List <Personaje> findByName(String string);
+    public List <Personaje> findByAge(Integer age);
+    public List <Personaje> findByMovieId(Long id);
 
 }

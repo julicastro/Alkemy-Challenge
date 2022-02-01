@@ -48,7 +48,7 @@
 
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Peliculas</label>
-                <div th:each="pelicula: ${listarPeliculas}" class="form-check">
+                <div th:each="pelicula: ${listarPeliculas}" class="form-check-inline">
                     <input type="checkbox" th:field="*{peliculas}" th:value="${pelicula.id}" class="form-check-input" 
                     th:errorclass="'form-control alert-danger'">
                     <label th:for="${#ids.prev('peliculas')}" th:text="${pelicula.titulo}" 

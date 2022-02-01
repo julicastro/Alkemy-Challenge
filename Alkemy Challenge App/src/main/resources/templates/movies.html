@@ -18,6 +18,7 @@
                     <th> Titulo </th>
                     <th> Fecha </th>
                     <th> Calificacion </th>
+                    <th> Personajes Asociados </th>
                     <th class="d-flex justify-content-end"> Editar / Eliminar </th>
                 </tr>
             </thead>
@@ -27,6 +28,11 @@
                     <td th:text="${pelicula.titulo}"></td>
                     <td th:text="${pelicula.createAt}"></td>
                     <td th:text="${pelicula.calificacion}"></td>
+                    <td>
+                        <span th:each="per: ${pelicula.personajes}">
+                            <span th:text=" '(' + ${per.nombre} + '). ' "></span>
+                        </span>   
+                    </td>
                     <td class="d-flex justify-content-end gap-2"> <a th:href="@{/movies-form/} + ${pelicula.id}"
                             class="btn btn-primary btn-xs"> Editar </a>
                         <a th:href="@{/delete-movie/} + ${pelicula.id}" class="btn btn-danger btn-xs"

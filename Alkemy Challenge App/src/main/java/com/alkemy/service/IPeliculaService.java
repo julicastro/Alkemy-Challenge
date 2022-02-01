@@ -10,5 +10,4 @@ public interface IPeliculaService {
     public void save (Pelicula pelicula); 
     public Pelicula findOne(Long id); 
     public void delete(Long id);
-
 }

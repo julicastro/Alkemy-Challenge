@@ -1,7 +1,11 @@
 package com.alkemy.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.alkemy.models.entity.Pelicula;
 import com.alkemy.models.entity.Personaje;
+import com.alkemy.models.dao.IPeliculaDao;
 import com.alkemy.models.dao.IPersonajeDao;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +17,9 @@ public class PersonajeServiceImp implements IPersonajeService {
 
     @Autowired
     private IPersonajeDao personajeDao;
+
+    @Autowired
+    private IPeliculaDao peliculaDao;
 
 
     @Override
@@ -38,6 +45,44 @@ public class PersonajeServiceImp implements IPersonajeService {
     public void delete(Long id) {
         personajeDao.deleteById(id);
         
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List <Personaje> findByName(String name) {
+        List <Personaje> personajesEncontrados = new ArrayList<>();
+            for (Personaje p : findAll()) {
+                if(p.getNombre().equalsIgnoreCase(name)){
+                    personajesEncontrados.add(p);
+                }
+            }
+        return personajesEncontrados;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List <Personaje> findByAge(Integer age) {
+        List <Personaje> personajesEncontrados = new ArrayList<>();
+            for (Personaje p : findAll()) {
+                if(p.getEdad().equals(age)){
+                    personajesEncontrados.add(p);
+                }
+            }
+        return personajesEncontrados;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List <Personaje> findByMovieId(Long id) {
+        List <Personaje> personajesEncontrados = new ArrayList<>();
+            for (Personaje p : findAll()) {
+                for (Pelicula peli : p.getPeliculas()) {
+                    if(peli.getId().equals(id)){
+                        personajesEncontrados.add(p);                    
+                    }
+                }
+            }
+        return personajesEncontrados;
     }
 
 

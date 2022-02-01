@@ -1,16 +1,20 @@
 package com.alkemy.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import com.alkemy.models.entity.Pelicula;
+import com.alkemy.models.entity.Personaje;
 import com.alkemy.service.IPeliculaService;
+import com.alkemy.service.IPersonajeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +28,8 @@ public class PeliculaController {
     @Autowired
     private IPeliculaService peliculaService;
 
+    @Autowired IPersonajeService personajeService;
+
     // LISTAR
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
@@ -31,6 +37,11 @@ public class PeliculaController {
         model.addAttribute("titulo", "Listado de Peliculas");
         model.addAttribute("peliculas", peliculaService.findAll());
         return null;
+    }
+
+    @ModelAttribute("listarPersonajes")
+    public List<Personaje> listarPersonajes(Model model) {
+        return personajeService.findAll();
     }
 
     // CREAR

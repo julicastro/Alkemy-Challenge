@@ -30,14 +30,18 @@
                     <td th:text="${personaje.edad}"></td>
                     <td th:text="${personaje.peso}"></td>
                     <td th:text="${personaje.historia}"></td>
-                    <td th:text="${personaje.peliculas}"></td>
+                    <td>
+                        <span th:each="peli: ${personaje.peliculas}">
+                            <b th:text=" '(' + ${peli.titulo} + '). ' "></b>
+                        </span>   
+                    </td>
                     <td class="d-flex justify-content-end gap-2">
                         <a th:href="@{/characters-form/} + ${personaje.id}" class="btn btn-primary btn-xs"> Editar </a>
                         <a th:href="@{/delete-characters/} + ${personaje.id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar este Personaje?')"> Eliminar </a>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> 
         </table>
     </div>
 
