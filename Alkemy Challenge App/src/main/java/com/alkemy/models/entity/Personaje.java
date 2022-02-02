@@ -40,6 +40,8 @@ public class Personaje implements Serializable {
     @NotEmpty
     private String historia;
 
+    private String imagen;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name="personajes_peliculas", 
@@ -49,10 +51,7 @@ public class Personaje implements Serializable {
         )
     private List <Pelicula> peliculas;
 
-    public void addPelicula(Pelicula pelicula){
-        this.peliculas.add(pelicula);
-        pelicula.getPersonajes().add(this);
-    }
+
 
     
 

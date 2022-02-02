@@ -8,9 +8,6 @@
 
     <div class="container">
         <h1 th:text="${titulo}" class="text-primary"></h1>
-        <p>
-            <a th:href="@{/characters-form}" class="btn btn-primary">Crear Personaje</a>
-        </p>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,33 +17,28 @@
                     <th> Peso </th>
                     <th> Historia </th>
                     <th> Peliculas </th>
-                    <th> Detalles </th>
                     <th class="d-flex justify-content-end"> Editar / Eliminar </th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="personaje: ${personajes}">
-                    <td th:text="${personaje.id}"></td>
-                    <td th:text="${personaje.nombre}"></td>
-                    <td th:text="${personaje.edad}"></td>
-                    <td th:text="${personaje.peso}"></td>
-                    <td th:text="${personaje.historia}"></td>
+                <tr>
+                    <td th:text="${id}"></td>
+                    <td th:text="${nombre}"></td>
+                    <td th:text="${edad}"></td>
+                    <td th:text="${peso}"></td>
+                    <td th:text="${historia}"></td>
                     <td>
-                        <span th:each="peli: ${personaje.peliculas}">
+                        <span th:each="peli: ${peliculas}">
                             <b th:text="${peli.titulo} + '; ' "></b>
-                        </span>   
-                    </td>
-                    <td>
-                        <a th:href="@{/character-details/} + ${personaje.id}" class="btn btn-secondary btn-xs"> Ver </a>
-
+                        </span>
                     </td>
                     <td class="d-flex justify-content-end gap-2">
-                        <a th:href="@{/characters-form/} + ${personaje.id}" class="btn btn-primary btn-xs"> Editar </a>
-                        <a th:href="@{/delete-characters/} + ${personaje.id}" class="btn btn-danger btn-xs"
+                        <a th:href="@{/characters-form/} + ${id}" class="btn btn-primary btn-xs"> Editar </a>
+                        <a th:href="@{/delete-characters/} + ${id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar este Personaje?')"> Eliminar </a>
                     </td>
-                </tr>
-            </tbody> 
+                    </tr>
+            </tbody>
         </table>
     </div>
 

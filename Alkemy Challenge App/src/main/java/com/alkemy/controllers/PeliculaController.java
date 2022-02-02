@@ -11,6 +11,7 @@ import com.alkemy.service.IPeliculaService;
 import com.alkemy.service.IPersonajeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -28,14 +30,29 @@ public class PeliculaController {
     @Autowired
     private IPeliculaService peliculaService;
 
-    @Autowired IPersonajeService personajeService;
+    @Autowired
+    private IPersonajeService personajeService;
 
     // LISTAR
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
-    public String listar(Model model) {
+    public String listar(@RequestParam("name") @Nullable String name, @RequestParam("genreId") @Nullable Long genreId,
+            @RequestParam("order") @Nullable String order, Model model) {
         model.addAttribute("titulo", "Listado de Peliculas");
         model.addAttribute("peliculas", peliculaService.findAll());
+        if (name != null) {
+            model.addAttribute("peliculas", peliculaService.findByName(name));
+        }
+        if (genreId != null) {
+            model.addAttribute("peliculas", peliculaService.findByGenreId(genreId));
+        }
+        if(order != null){
+            model.addAttribute("peliculas", peliculaService.orderList(order));
+        }
+   
+
+
+
         return null;
     }
 
@@ -62,7 +79,6 @@ public class PeliculaController {
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Formulario de cliente");
             model.addAttribute("botonSubmit", "Crear pelicula");
-
             return "movies-form";
         }
         peliculaService.save(pelicula);

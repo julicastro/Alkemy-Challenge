@@ -17,6 +17,16 @@
                         class="form-text text-danger"></small>
                 </div>
             </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-2">Asociar Peliculas</label>
+                <div th:each="pelicula: ${peliculasAsociadas}" class="form-check-inline">
+                    <input type="checkbox" th:field="*{peliculas}" th:value="${pelicula.id}" class="form-check-input" 
+                    th:errorclass="'form-control alert-danger'">
+                    <label th:for="${#ids.prev('peliculas')}" th:text="${pelicula.titulo}" 
+                    class="form-check-label"></label>
+                </div>
+            </div>
         
             <div class="form-group row">
                 <div class="col-sm-6">

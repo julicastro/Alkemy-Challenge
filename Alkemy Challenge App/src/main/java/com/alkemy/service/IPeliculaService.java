@@ -10,4 +10,11 @@ public interface IPeliculaService {
     public void save (Pelicula pelicula); 
     public Pelicula findOne(Long id); 
     public void delete(Long id);
+
+    public List <Pelicula> findByName(String string);
+    public List <Pelicula> findByGenreId(Long id);
+
+    public List <Pelicula> orderList(String orden); 
+
+
 }

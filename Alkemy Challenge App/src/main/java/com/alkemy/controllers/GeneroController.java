@@ -1,15 +1,20 @@
 package com.alkemy.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import com.alkemy.models.entity.Genero;
+import com.alkemy.models.entity.Pelicula;
 import com.alkemy.service.IGeneroService;
+import com.alkemy.service.IPeliculaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +28,9 @@ public class GeneroController {
     @Autowired
     private IGeneroService generoService;
 
+    @Autowired
+    private IPeliculaService peliculaService;
+
     // LISTAR
 
     @RequestMapping(value = "/genre", method = RequestMethod.GET)
@@ -32,6 +40,11 @@ public class GeneroController {
         return null;
     }
 
+    @ModelAttribute("peliculasAsociadas")
+    public List<Pelicula> listarPeliculas(Model model) {
+        return peliculaService.findAll();
+    }
+    
     // CREAR
 
     @RequestMapping(value = "/genre-form")

@@ -9,8 +9,9 @@
     <div class="container">
         <h1 th:text="${titulo}" class="text-warning"></h1>
         <p>
-            <a th:href="@{/movies-form}" class="btn btn-warning"> Agregar Pelicula</a>
+            <a th:href="@{/movies-form}" class="btn btn-warning"> Agregar Pelicula </a>
         </p>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -31,7 +32,7 @@
                     <td>
                         <span th:each="per: ${pelicula.personajes}">
                             <span th:text=" '(' + ${per.nombre} + '). ' "></span>
-                        </span>   
+                        </span>
                     </td>
                     <td class="d-flex justify-content-end gap-2"> <a th:href="@{/movies-form/} + ${pelicula.id}"
                             class="btn btn-primary btn-xs"> Editar </a>

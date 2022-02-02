@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.alkemy.models.entity.Pelicula;
 import com.alkemy.models.entity.Personaje;
-import com.alkemy.models.dao.IPeliculaDao;
 import com.alkemy.models.dao.IPersonajeDao;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +16,6 @@ public class PersonajeServiceImp implements IPersonajeService {
 
     @Autowired
     private IPersonajeDao personajeDao;
-
-    @Autowired
-    private IPeliculaDao peliculaDao;
-
 
     @Override
     @Transactional(readOnly = true)
@@ -44,7 +39,6 @@ public class PersonajeServiceImp implements IPersonajeService {
     @Transactional
     public void delete(Long id) {
         personajeDao.deleteById(id);
-        
     }
 
     @Override

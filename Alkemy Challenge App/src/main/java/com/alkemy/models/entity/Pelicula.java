@@ -23,7 +23,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "peliculas")
-public class Pelicula implements Serializable{
+public class Pelicula implements Serializable, Comparable<Pelicula> {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,8 +34,8 @@ public class Pelicula implements Serializable{
     @NotEmpty
     private String titulo;
 
-    @Column(name = "create_at") 
-    @Temporal(TemporalType.DATE) 
+    @Column(name = "create_at")
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull
     private Date createAt;
@@ -46,15 +46,11 @@ public class Pelicula implements Serializable{
     private Integer calificacion;
 
     @ManyToMany(mappedBy = "peliculas")
-    List <Personaje> personajes;
+    List<Personaje> personajes;
 
     @Override
-    public String toString() {
-        return this.getTitulo();
+    public int compareTo(Pelicula p) {
+        return titulo.compareTo(p.getTitulo());
     }
-    
-
-
-
 
 }

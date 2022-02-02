@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layouts/layout.html :: head"></head>
+
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
     <div class="container">
 
-        <h1 th:text="${titulo}" class="text-primary"></h1>      
+        <h1 th:text="${titulo}" class="text-primary"></h1>
 
-        <form th:action="@{/characters-form}" th:object="${personaje}" method="post">
-         
+        <form th:action="@{/characters-form}" th:object="${personaje}" method="post" enctype="multipart/form-data">
+
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <input type="text" th:field="*{nombre}" class="form-control"
+                        th:errorclass="'form-control alert-danger'" />
                     <small th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
                         class="form-text text-danger"></small>
                 </div>
@@ -22,7 +25,8 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Edad</label>
                 <div class="col-sm-6">
-                    <input type="text" th:field="*{edad}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <input type="text" th:field="*{edad}" class="form-control"
+                        th:errorclass="'form-control alert-danger'" />
                     <small th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"
                         class="form-text text-danger"></small>
                 </div>
@@ -31,7 +35,8 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Peso</label>
                 <div class="col-sm-6">
-                    <input type="text" th:field="*{peso}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <input type="text" th:field="*{peso}" class="form-control"
+                        th:errorclass="'form-control alert-danger'" />
                     <small th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"
                         class="form-text text-danger"></small>
                 </div>
@@ -40,22 +45,34 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Historia</label>
                 <div class="col-sm-6">
-                    <input type="text" th:field="*{historia}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                    <input type="text" th:field="*{historia}" class="form-control"
+                        th:errorclass="'form-control alert-danger'" />
                     <small th:if="${#fields.hasErrors('historia')}" th:errors="*{historia}"
                         class="form-text text-danger"></small>
                 </div>
             </div>
 
             <div class="form-group row mb-3">
-                <label class="col-form-label col-sm-2">Peliculas</label>
-                <div th:each="pelicula: ${listarPeliculas}" class="form-check-inline">
-                    <input type="checkbox" th:field="*{peliculas}" th:value="${pelicula.id}" class="form-check-input" 
-                    th:errorclass="'form-control alert-danger'">
-                    <label th:for="${#ids.prev('peliculas')}" th:text="${pelicula.titulo}" 
-                    class="form-check-label"></label>
+                <label class="col-form-label col-sm-2" for="imagen">Imagen</label>
+                <div class="col-sm-6">
+                    <input type="file" name="file" th:field="*{historia}" class="form-control"
+                        th:errorclass="'form-control alert-danger'" id="imagen"/>
+                    <small th:if="${#fields.hasErrors('historia')}" th:errors="*{historia}"
+                        class="form-text text-danger"></small>
                 </div>
             </div>
-        
+
+
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-2">Peliculas</label>
+                <div th:each="pelicula: ${listarPeliculas}" class="form-check-inline">
+                    <input type="checkbox" th:field="*{peliculas}" th:value="${pelicula.id}" class="form-check-input"
+                        th:errorclass="'form-control alert-danger'">
+                    <label th:for="${#ids.prev('peliculas')}" th:text="${pelicula.titulo}"
+                        class="form-check-label"></label>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <div class="col-sm-6">
                     <input type="submit" th:value="${botonSubmit}" class="btn btn-primary" />
