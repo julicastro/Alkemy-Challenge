@@ -1,7 +1,7 @@
-INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('1', '46', 'Es la mascota de Disney', 'MIckey', '59');
-INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('2', '55', 'Esta es la historia del personaje', 'Messi', '63');
-INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('3', '78', 'Esta es la historia del personaje', 'Julian', '21');
-INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('4', '65', 'Esta es la historia del personaje', 'Castro', '24');
+INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('1', '1500', 'Es un personaje de Marvel', 'Thor', '78');
+INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('2', '55', 'Es la mascota de disney', 'Mickey', '63');
+INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('3', '78', 'Uno de los superheroes de Marvel', 'Tonny', '21');
+INSERT INTO `db_alkemy`.`personajes` (`id`, `edad`, `historia`, `nombre`, `peso`) VALUES ('4', '65', 'Es un personaje de disney', 'Steve', '24');
 
 INSERT INTO `db_alkemy`.`generos` (`nombre`) VALUES ('TERROR');
 INSERT INTO `db_alkemy`.`generos` (`nombre`) VALUES ('DRAMA');

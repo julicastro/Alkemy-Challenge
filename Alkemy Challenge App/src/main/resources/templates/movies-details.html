@@ -6,11 +6,8 @@
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
-    <div style="width: 90%; margin: auto;">
-        <h1 th:text="${titulo}" class="text-warning"></h1>
-        <p>
-            <a th:href="@{/movies-form}" class="btn btn-warning"> Agregar Pelicula </a>
-        </p>
+    <div class="container">
+        <h1 th:text="${titulo}" class="text-success"></h1>
 
         <table class="table table-striped">
             <thead>
@@ -19,29 +16,24 @@
                     <th> Titulo </th>
                     <th> Fecha </th>
                     <th> Calificacion </th>
-                    <th> Imagen </th>
-                    <th> Genero </th>
                     <th> Personajes Asociados </th>
                     <th class="d-flex justify-content-end"> Editar / Eliminar </th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="pelicula: ${peliculas}">
-                    <td th:text="${pelicula.id}"></td>
-                    <td th:text="${pelicula.titulo}"></td>
-                    <td th:text="${pelicula.createAt}"></td>
-                    <td th:text="${pelicula.calificacion}"></td>
-                    <td></td>
-                    <td></td>
-
+                <tr>
+                    <td th:text="${id}"></td>
+                    <td th:text="${nombre}"></td>
+                    <td th:text="${createAt}"></td>
+                    <td th:text="${calificacion}"></td>
                     <td>
-                        <span th:each="per: ${pelicula.personajes}">
+                        <span th:each="per: ${personajes}">
                             <span th:text=" '(' + ${per.nombre} + '). ' "></span>
                         </span>
                     </td>
-                    <td class="d-flex justify-content-end gap-2"> <a th:href="@{/movies-form/} + ${pelicula.id}"
-                            class="btn btn-primary btn-xs"> Editar </a>
-                        <a th:href="@{/delete-movie/} + ${pelicula.id}" class="btn btn-danger btn-xs"
+                    <td class="d-flex justify-content-end gap-2"> 
+                        <a th:href="@{/movies-form/} + ${id}" class="btn btn-success btn-xs"> Editar </a>
+                        <a th:href="@{/delete-movie/} + ${id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar esta Pelicula?')"> Eliminar </a>
                     </td>
 

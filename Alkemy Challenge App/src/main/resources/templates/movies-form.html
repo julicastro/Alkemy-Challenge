@@ -8,7 +8,7 @@
 
     <div class="container">
 
-        <h1 th:text="${titulo}" class="text-primary"></h1>
+        <h1 th:text="${titulo}" class="text-warning"></h1>
 
         <form th:action="@{/movies-form}" th:object="${pelicula}" method="post">
 
@@ -41,7 +41,6 @@
                         class="form-text text-danger"></small>
                 </div>
             </div>
-
             <!--
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Asociar Personaje</label>
@@ -55,7 +54,7 @@
             -->
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" th:value="${botonSubmit}" class="btn btn-primary" />
+                    <input type="submit" th:value="${botonSubmit}" class="btn btn-warning" />
                 </div>
             </div>
 

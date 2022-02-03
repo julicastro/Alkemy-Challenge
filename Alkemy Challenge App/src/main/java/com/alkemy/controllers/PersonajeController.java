@@ -1,8 +1,5 @@
 package com.alkemy.controllers;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 // @RequestMapping("characters")
@@ -37,21 +33,21 @@ public class PersonajeController {
 
     @Autowired
     private IPeliculaService peliculaService;
-
     // LISTAR
 
+
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age,
-            @RequestParam("idMovie") @Nullable Long idMovie, Model model) {
-        model.addAttribute("titulo", "Detalle de Personaje");
+    public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age, 
+                        @RequestParam("idMovie") @Nullable Long idMovie, Model model) {
+        model.addAttribute("titulo", "Lista de Personajes");
         model.addAttribute("personajes", personajeService.findAll());
-        if (name != null) {
-            model.addAttribute("personajes", personajeService.findByName(name));
+        if(name!= null){
+            model.addAttribute("personajes", personajeService.findByName(name));   
         }
-        if (age != null) {
+        if(age!= null){
             model.addAttribute("personajes", personajeService.findByAge(age));
         }
-        if (idMovie != null) {
+        if(idMovie!= null){
             model.addAttribute("personajes", personajeService.findByMovieId(idMovie));
         }
         return null;
@@ -74,31 +70,14 @@ public class PersonajeController {
     }
 
     @RequestMapping(value = "/characters-form", method = RequestMethod.POST)
-    public String guardar(@Valid Personaje personaje, BindingResult result,
-            Model model, @RequestParam("file") MultipartFile imagen, SessionStatus status) {
+    public String guardar(@Valid Personaje personaje, BindingResult result, Model model, SessionStatus status) {
+
         status.setComplete();
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Formulario de Personaje");
             model.addAttribute("botonSubmit", "Crear Personaje");
-            
             return "characters-form";
         }
-        if (!imagen.isEmpty()) {
-            Path directorioImagenes = Paths.get("src//main//resources//static/images");
-            String rutaAbsoulta = directorioImagenes.toFile().getAbsolutePath();
-
-            try {
-                byte[] byteImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoulta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, byteImg);
-
-                personaje.setImagen(imagen.getOriginalFilename());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         personajeService.save(personaje);
         return "redirect:characters";
     }
@@ -118,6 +97,16 @@ public class PersonajeController {
         model.put("titulo", "Editar Personaje");
         model.put("botonSubmit", "Guardar");
         return "characters-form";
+    }
+
+    // ELIMINAR
+
+    @RequestMapping(value = "/delete-characters/{id}")
+    public String eliminar(@PathVariable(value = "id") Long id) {
+        if (id > 0) {
+            personajeService.delete(id);
+        }
+        return "redirect:/characters";
     }
 
     @RequestMapping(value = "/character-details/{id}")
@@ -140,14 +129,7 @@ public class PersonajeController {
         return "character-details";
     }
 
-    // ELIMINAR
-
-    @RequestMapping(value = "/delete-characters/{id}")
-    public String eliminar(@PathVariable(value = "id") Long id) {
-        if (id > 0) {
-            personajeService.delete(id);
-        }
-        return "redirect:/characters";
-    }
 
 }
+
+    

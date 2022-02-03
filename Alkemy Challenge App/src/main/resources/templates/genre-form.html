@@ -5,7 +5,7 @@
     <header th:replace="layouts/layout.html :: header"></header>
     <div class="container">
 
-        <h1 th:text="${titulo}" class="text-primary"></h1>      
+        <h1 th:text="${titulo}" class="text-info"></h1>      
 
         <form th:action="@{/genre-form}" th:object="${genero}" method="post">
          
@@ -30,7 +30,7 @@
         
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" th:value="${botonSubmit}" class="btn btn-primary" />
+                    <input type="submit" th:value="${botonSubmit}" class="btn btn-info" />
                 </div>
             </div>
 

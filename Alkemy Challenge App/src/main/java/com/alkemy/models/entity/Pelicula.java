@@ -53,4 +53,14 @@ public class Pelicula implements Serializable, Comparable<Pelicula> {
         return titulo.compareTo(p.getTitulo());
     }
 
+    @ManyToMany(mappedBy = "peliculas")
+    private List<Genero> genero;
+
+    /*
+     * Si bien lo correcto sería hacer una relación @OneToMany con el Many del lado
+     * de Pelicula, opté por hacerlo @ManyToMany ya que me tiraba un error cuando
+     * quería agregar la misma película a 2 o más géneros distintos. Tenía un
+     * problema con los ID duplicados.
+     */
+
 }

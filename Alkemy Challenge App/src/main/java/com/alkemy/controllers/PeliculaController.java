@@ -38,7 +38,7 @@ public class PeliculaController {
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public String listar(@RequestParam("name") @Nullable String name, @RequestParam("genreId") @Nullable Long genreId,
             @RequestParam("order") @Nullable String order, Model model) {
-        model.addAttribute("titulo", "Listado de Peliculas");
+        model.addAttribute("titulo", "Lista de Películas");
         model.addAttribute("peliculas", peliculaService.findAll());
         if (name != null) {
             model.addAttribute("peliculas", peliculaService.findByName(name));
@@ -46,29 +46,28 @@ public class PeliculaController {
         if (genreId != null) {
             model.addAttribute("peliculas", peliculaService.findByGenreId(genreId));
         }
-        if(order != null){
+        if (order != null) {
             model.addAttribute("peliculas", peliculaService.orderList(order));
         }
-   
-
-
-
         return null;
     }
+    /* devuelvo el tipo de lista filtrada u ordenada segun request param */
 
     @ModelAttribute("listarPersonajes")
     public List<Personaje> listarPersonajes(Model model) {
         return personajeService.findAll();
     }
-
-    // CREAR
+    /*
+     * llamo a la lista de personajes para poder iterarla en la vista y asi obtener
+     * el nombre de cada personaje
+     */
 
     @RequestMapping(value = "/movies-form")
     public String crear(Map<String, Object> model) {
         Pelicula pelicula = new Pelicula();
         model.put("pelicula", pelicula);
-        model.put("titulo", "Formulario de pelicula");
-        model.put("botonSubmit", "Crear pelicula");
+        model.put("titulo", "Formulario de Películas");
+        model.put("botonSubmit", "Crear película");
         return "movies-form";
     }
 
@@ -77,8 +76,8 @@ public class PeliculaController {
 
         status.setComplete();
         if (result.hasErrors()) {
-            model.addAttribute("titulo", "Formulario de cliente");
-            model.addAttribute("botonSubmit", "Crear pelicula");
+            model.addAttribute("titulo", "Formulario de Películas");
+            model.addAttribute("botonSubmit", "Crear película");
             return "movies-form";
         }
         peliculaService.save(pelicula);

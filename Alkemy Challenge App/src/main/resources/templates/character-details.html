@@ -6,7 +6,7 @@
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
-    <div class="container">
+    <div style="width: 90%; margin: auto;">
         <h1 th:text="${titulo}" class="text-primary"></h1>
         <table class="table table-striped">
             <thead>
@@ -37,7 +37,7 @@
                         <a th:href="@{/delete-characters/} + ${id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar este Personaje?')"> Eliminar </a>
                     </td>
-                    </tr>
+                </tr>
             </tbody>
         </table>
     </div>

@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Entity
@@ -38,11 +40,13 @@ public class Personaje implements Serializable {
     private Double peso;
 
     @NotEmpty
+    @Size(min = 10, max = 225)
     private String historia;
 
+    // @NotEmpty
     private String imagen;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL )
     @JoinTable(
         name="personajes_peliculas", 
         joinColumns = @JoinColumn(name="personaje_id"),

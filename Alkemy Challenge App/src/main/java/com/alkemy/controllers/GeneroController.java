@@ -35,7 +35,7 @@ public class GeneroController {
 
     @RequestMapping(value = "/genre", method = RequestMethod.GET)
     public String listar(Model model) {
-        model.addAttribute("titulo", "Generos de Peliculas");
+        model.addAttribute("titulo", "Géneros de películas");
         model.addAttribute("generos", generoService.findAll());
         return null;
     }
@@ -51,7 +51,7 @@ public class GeneroController {
     public String crear(Map<String, Object> model) {
         Genero genero = new Genero();
         model.put("genero", genero);
-        model.put("titulo", "Formulario de Genero de Peliculas");
+        model.put("titulo", "Formulario de Género de películas");
         model.put("botonSubmit", "Nuevo Genero");
         return "genre-form";
     }
@@ -61,8 +61,8 @@ public class GeneroController {
 
         status.setComplete();
         if (result.hasErrors()) {
-            model.addAttribute("titulo", "Formulario de Genero de Peliculas");
-            model.addAttribute("botonSubmit", "Nuevo Genero");
+            model.addAttribute("titulo", "Formulario de Género de películas");
+            model.addAttribute("botonSubmit", "Nuevo Género");
 
             return "genre-form";
         }
@@ -82,7 +82,7 @@ public class GeneroController {
             return "redirect/genre";
         }
         model.put("genero", genero);
-        model.put("titulo", "Editar Generos");
+        model.put("titulo", "Editar Géneros");
         model.put("botonSubmit", "Guardar");
         return "genre-form";
     }
