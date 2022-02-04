@@ -41,6 +41,7 @@
                         class="form-text text-danger"></small>
                 </div>
             </div>
+            
             <!--
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-2">Asociar Personaje</label>
@@ -52,6 +53,20 @@
                 </div>
             </div>
             -->
+            <!--
+            <div class="form-group row mb-3">
+                <label for="genero" class="col-form-label col-sm-2">Genero</label>
+                <div>
+                    <select type="text" id="genero" th:field="*{genero}">
+                        <option value="">-- seleccionar --</option>
+                        <option th:each="genero: ${listaDeGeneros}" th:text="${genero.nombre}" th:value="${genero.id}">
+                        </option>
+                    </select>
+                </div>
+                <div style="color: red" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
+            </div>
+            -->
+
             <div class="form-group row">
                 <div class="col-sm-6">
                     <input type="submit" th:value="${botonSubmit}" class="btn btn-warning" />

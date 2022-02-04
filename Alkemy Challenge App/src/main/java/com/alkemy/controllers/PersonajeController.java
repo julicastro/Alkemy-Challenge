@@ -11,7 +11,6 @@ import com.alkemy.models.entity.Personaje;
 import com.alkemy.service.IPeliculaService;
 import com.alkemy.service.IPersonajeService;
 
-import org.apache.el.parser.AstInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -39,20 +38,20 @@ public class PersonajeController {
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
     public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age,
-            @RequestParam("idMovie") @Nullable Long idMovie, @RequestParam("busqueda") @Nullable String busqueda,
+            @RequestParam("idMovie") @Nullable Long idMovie, @RequestParam("search") @Nullable String search,
             Model model) {
         model.addAttribute("titulo", "Lista de Personajes");
         model.addAttribute("personajes", personajeService.findAll());
-        if (busqueda != null) {
+        if (search != null) {
             List<Personaje> personajesEncontrados = new ArrayList<>();
-            personajesEncontrados.addAll(personajeService.findByName(busqueda.toString()));
+            personajesEncontrados.addAll(personajeService.findByName(search.toString()));
             try {
-                personajesEncontrados.addAll(personajeService.findByAge(Integer.parseInt(busqueda)));
+                personajesEncontrados.addAll(personajeService.findByAge(Integer.parseInt(search)));
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                personajesEncontrados.addAll(personajeService.findByMovieId(Long.parseLong(busqueda)));
+                personajesEncontrados.addAll(personajeService.findByMovieId(Long.parseLong(search)));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -75,7 +74,7 @@ public class PersonajeController {
      * este método se encarga de listar todos los personajes. puede filtrar por
      * nombre, id de película y edad mostrando los endpoints pedidos en la consigna.
      * Además, le agregué un input que tambien perfite filtrar por estos 3
-     * parametros pero cuyo input es /characters?busqueda=valor. Para eso recivo un
+     * parametros pero cuyo input es /characters?search=value. Para eso recivo un
      * String como Request Param el cual casteo a Integer o Long según corresponda y
      * luego con ese valor llamar a los métodos de PersonajeServiceImp
      * correspondientes

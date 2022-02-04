@@ -6,17 +6,36 @@
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
+    <div class="container">
+        <form th:action="@{/movies}" class="form-group mx-auto w-50 mb-4">
+            <div class="input-group">
+                <input name="search" type="text" placeholder="Buscar por Título o ID del Género"
+                    class="form-control">
+                <input type="submit" value="Buscar" class="btn btn-warning">
+            </div>
+        </form>
+    </div>
+
     <div style="width: 90%; margin: auto;">
-        <h1 th:text="${titulo}" class="text-warning"></h1>
-        <p>
-            <a th:href="@{/movies-form}" class="btn btn-warning"> Agregar Pelicula </a>
-        </p>
-        <p>
-            <a th:href="@{/movies?order=asc}">ASC</a>
-        </p>
-        <p>
-            <a th:href="@{/movies?order=desc}">DESC</a>
-        </p>
+        <div>
+            <div>
+                <h1 th:text="${titulo}" class="text-warning"></h1>
+                <p>
+                    <a th:href="@{/movies-form}" class="btn btn-warning text-light"> Agregar Pelicula </a>
+                </p>
+
+            </div>
+            <div class="mb-3">
+                <h4 class="text-secondary">Ordenar: </h4>
+                <div>
+                    <a class="btn btn-secondary text-light" th:href="@{/movies?order=asc}"><b>Ascendente</b></a>
+                    <a class="btn btn-secondary text-light" th:href="@{/movies?order=desc}"><b>Descendente</b></a>
+                    <a class="btn btn-secondary text-light" th:href="@{/movies}"><b>Default</b> </a>
+
+                </div>
+            </div>
+        </div>
+
 
 
         <table class="table table-striped">
@@ -29,6 +48,7 @@
                     <th> Imagen </th>
                     <th> Genero </th>
                     <th> Personajes Asociados </th>
+
                     <th class="d-flex justify-content-end"> Editar / Eliminar </th>
                 </tr>
             </thead>
@@ -39,8 +59,11 @@
                     <td th:text="${pelicula.createAt}"></td>
                     <td th:text="${pelicula.calificacion}"></td>
                     <td></td>
-                    <td></td>
-
+                    <td>
+                        <span th:each="gen: ${pelicula.genero}">
+                            <span th:text=" '(' + ${gen.nombre} + '). ' "></span>
+                        </span>
+                    </td>
                     <td>
                         <span th:each="per: ${pelicula.personajes}">
                             <span th:text=" '(' + ${per.nombre} + '). ' "></span>

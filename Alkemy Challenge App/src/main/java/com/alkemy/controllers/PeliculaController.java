@@ -1,12 +1,15 @@
 package com.alkemy.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.alkemy.models.entity.Genero;
 import com.alkemy.models.entity.Pelicula;
 import com.alkemy.models.entity.Personaje;
+import com.alkemy.service.IGeneroService;
 import com.alkemy.service.IPeliculaService;
 import com.alkemy.service.IPersonajeService;
 
@@ -33,34 +36,56 @@ public class PeliculaController {
     @Autowired
     private IPersonajeService personajeService;
 
-    // LISTAR
+    @Autowired
+    private IGeneroService generoService;
 
+    /* Método explicado en "PersonajeController" */
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public String listar(@RequestParam("name") @Nullable String name, @RequestParam("genreId") @Nullable Long genreId,
-            @RequestParam("order") @Nullable String order, Model model) {
+            @RequestParam("order") @Nullable String order, @RequestParam("search") @Nullable String search,
+            Model model) {
         model.addAttribute("titulo", "Lista de Películas");
         model.addAttribute("peliculas", peliculaService.findAll());
-        if (name != null) {
-            model.addAttribute("peliculas", peliculaService.findByName(name));
-        }
-        if (genreId != null) {
-            model.addAttribute("peliculas", peliculaService.findByGenreId(genreId));
-        }
-        if (order != null) {
-            model.addAttribute("peliculas", peliculaService.orderList(order));
+        if (search != null) {
+            List<Pelicula> peliculasEncontradas = new ArrayList<>();
+            peliculasEncontradas.addAll(peliculaService.findByName(search.toString()));
+            try {
+                peliculasEncontradas.addAll(peliculaService.findByGenreId(Long.parseLong(search)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            model.addAttribute("peliculas", peliculasEncontradas);
+        } else {
+            if (name != null) {
+                model.addAttribute("peliculas", peliculaService.findByName(name));
+            }
+            if (genreId != null) {
+                model.addAttribute("peliculas", peliculaService.findByGenreId(genreId));
+            }
+            if (order != null) {
+                model.addAttribute("peliculas", peliculaService.orderList(order));
+            }
         }
         return null;
     }
-    /* devuelvo el tipo de lista filtrada u ordenada segun request param */
 
-    @ModelAttribute("listarPersonajes")
-    public List<Personaje> listarPersonajes(Model model) {
-        return personajeService.findAll();
-    }
     /*
      * llamo a la lista de personajes para poder iterarla en la vista y asi obtener
      * el nombre de cada personaje
      */
+    @ModelAttribute("listarPersonajes")
+    public List<Personaje> listarPersonajes(Model model) {
+        return personajeService.findAll();
+    }
+
+    /*
+     * llamo a la lista de personajes para poder iterarla en la vista y asi obtener
+     * el nombre de cada personaje
+     */
+    @ModelAttribute("listaDeGeneros")
+    public List<Genero> listaDeGeneros(Model model) {
+        return generoService.findAll();
+    }
 
     @RequestMapping(value = "/movies-form")
     public String crear(Map<String, Object> model) {

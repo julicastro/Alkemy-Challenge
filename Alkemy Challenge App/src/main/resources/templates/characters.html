@@ -9,7 +9,7 @@
     <div class="container">
         <form th:action="@{/characters}" class="form-group mx-auto w-50 mb-4">
             <div class="input-group">
-                <input name="busqueda" type="text" placeholder="Buscar por Nombre, Edad o ID de Película"
+                <input name="search" type="text" placeholder="Buscar por Nombre, Edad o ID de Película"
                     class="form-control">
                 <input type="submit" value="Buscar" class="btn btn-primary">
             </div>
@@ -23,7 +23,6 @@
                 <a th:href="@{/characters-form}" class="btn btn-primary">Crear Personaje</a>
             </p>
         </div>
-
 
         <table class="table table-striped">
             <thead>
