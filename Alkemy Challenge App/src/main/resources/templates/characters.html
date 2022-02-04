@@ -7,10 +7,24 @@
     <header th:replace="layouts/layout.html :: header"></header>
 
     <div class="container">
-        <h1 th:text="${titulo}" class="text-primary"></h1>
-        <p>
-            <a th:href="@{/characters-form}" class="btn btn-primary">Crear Personaje</a>
-        </p>
+        <form th:action="@{/characters}" class="form-group mx-auto w-50 mb-4">
+            <div class="input-group">
+                <input name="busqueda" type="text" placeholder="Buscar por Nombre, Edad o ID de Película"
+                    class="form-control">
+                <input type="submit" value="Buscar" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <div>
+            <h1 th:text="${titulo}" class="text-primary"></h1>
+            <p>
+                <a th:href="@{/characters-form}" class="btn btn-primary">Crear Personaje</a>
+            </p>
+        </div>
+
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -24,9 +38,9 @@
                     <td th:text="${personaje.id}"></td>
                     <td th:text="${personaje.nombre}"></td>
                     <td class="d-flex justify-content-end gap-2">
-                        <a th:href="@{/character-details/} + ${personaje.id}" class="btn btn-secondary btn-xs"> Detalles </a>
-                        <a th:href="@{/characters-form/} + ${personaje.id}"
-                            class="btn btn-primary btn-xs"> Editar </a>
+                        <a th:href="@{/character-details/} + ${personaje.id}" class="btn btn-secondary btn-xs"> Detalles
+                        </a>
+                        <a th:href="@{/characters-form/} + ${personaje.id}" class="btn btn-primary btn-xs"> Editar </a>
                         <a th:href="@{/delete-characters/} + ${personaje.id}" class="btn btn-danger btn-xs"
                             onclick="return confirm('¿Estás seguro que querés eliminar esta Pelicula?')"> Eliminar </a>
                     </td>

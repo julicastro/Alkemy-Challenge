@@ -43,7 +43,7 @@ public class PersonajeServiceImp implements IPersonajeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List <Personaje> findByName(String name) {
+    public List<Personaje> findByName(String name) {
         List <Personaje> personajesEncontrados = new ArrayList<>();
             for (Personaje p : findAll()) {
                 if(p.getNombre().equalsIgnoreCase(name)){

@@ -1,5 +1,6 @@
 package com.alkemy.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import com.alkemy.models.entity.Personaje;
 import com.alkemy.service.IPeliculaService;
 import com.alkemy.service.IPersonajeService;
 
+import org.apache.el.parser.AstInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -35,30 +37,59 @@ public class PersonajeController {
     private IPeliculaService peliculaService;
     // LISTAR
 
-
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age, 
-                        @RequestParam("idMovie") @Nullable Long idMovie, Model model) {
+    public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age,
+            @RequestParam("idMovie") @Nullable Long idMovie, @RequestParam("busqueda") @Nullable String busqueda,
+            Model model) {
         model.addAttribute("titulo", "Lista de Personajes");
         model.addAttribute("personajes", personajeService.findAll());
-        if(name!= null){
-            model.addAttribute("personajes", personajeService.findByName(name));   
-        }
-        if(age!= null){
-            model.addAttribute("personajes", personajeService.findByAge(age));
-        }
-        if(idMovie!= null){
-            model.addAttribute("personajes", personajeService.findByMovieId(idMovie));
+        if (busqueda != null) {
+            List<Personaje> personajesEncontrados = new ArrayList<>();
+            personajesEncontrados.addAll(personajeService.findByName(busqueda.toString()));
+            try {
+                personajesEncontrados.addAll(personajeService.findByAge(Integer.parseInt(busqueda)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                personajesEncontrados.addAll(personajeService.findByMovieId(Long.parseLong(busqueda)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            model.addAttribute("personajes", personajesEncontrados);
+        } else {
+            if (name != null) {
+                model.addAttribute("personajes", personajeService.findByName(name));
+            }
+            if (age != null) {
+                model.addAttribute("personajes", personajeService.findByAge(age));
+            }
+            if (idMovie != null) {
+                model.addAttribute("personajes", personajeService.findByMovieId(idMovie));
+            }
         }
         return null;
     }
+
+    /*
+     * este método se encarga de listar todos los personajes. puede filtrar por
+     * nombre, id de película y edad mostrando los endpoints pedidos en la consigna.
+     * Además, le agregué un input que tambien perfite filtrar por estos 3
+     * parametros pero cuyo input es /characters?busqueda=valor. Para eso recivo un
+     * String como Request Param el cual casteo a Integer o Long según corresponda y
+     * luego con ese valor llamar a los métodos de PersonajeServiceImp
+     * correspondientes
+     */
 
     @ModelAttribute("listarPeliculas")
     public List<Pelicula> listarPeliculas(Model model) {
         return peliculaService.findAll();
     }
 
-    // CREAR
+    /*
+     * obtiene la lista de peliculas para poder iterarlas y mostrarlas en el
+     * formulario de creación o edicón de personajes
+     */
 
     @RequestMapping(value = "/characters-form")
     public String crear(Map<String, Object> model) {
@@ -129,7 +160,4 @@ public class PersonajeController {
         return "character-details";
     }
 
-
 }
-
-    
