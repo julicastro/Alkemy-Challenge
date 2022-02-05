@@ -1,5 +1,8 @@
 package com.alkemy.controllers;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 // @RequestMapping("characters")
@@ -36,6 +41,15 @@ public class PersonajeController {
     private IPeliculaService peliculaService;
     // LISTAR
 
+    /*
+     * este método se encarga de listar todos los personajes. puede filtrar por
+     * nombre, id de película y edad mostrando los endpoints pedidos en la consigna.
+     * Además, le agregué un input que tambien perfite filtrar por estos 3
+     * parametros pero cuyo input es /characters?search=value. Para eso recivo un
+     * String como Request Param el cual casteo a Integer o Long según corresponda y
+     * luego con ese valor llamar a los métodos de PersonajeServiceImp
+     * correspondientes
+     */
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
     public String listar(@RequestParam("name") @Nullable String name, @RequestParam("age") @Nullable Integer age,
             @RequestParam("idMovie") @Nullable Long idMovie, @RequestParam("search") @Nullable String search,
@@ -71,24 +85,13 @@ public class PersonajeController {
     }
 
     /*
-     * este método se encarga de listar todos los personajes. puede filtrar por
-     * nombre, id de película y edad mostrando los endpoints pedidos en la consigna.
-     * Además, le agregué un input que tambien perfite filtrar por estos 3
-     * parametros pero cuyo input es /characters?search=value. Para eso recivo un
-     * String como Request Param el cual casteo a Integer o Long según corresponda y
-     * luego con ese valor llamar a los métodos de PersonajeServiceImp
-     * correspondientes
+     * obtiene la lista de peliculas para poder iterarlas y mostrarlas en el
+     * formulario de creación o edicón de personajes
      */
-
     @ModelAttribute("listarPeliculas")
     public List<Pelicula> listarPeliculas(Model model) {
         return peliculaService.findAll();
     }
-
-    /*
-     * obtiene la lista de peliculas para poder iterarlas y mostrarlas en el
-     * formulario de creación o edicón de personajes
-     */
 
     @RequestMapping(value = "/characters-form")
     public String crear(Map<String, Object> model) {
@@ -100,13 +103,25 @@ public class PersonajeController {
     }
 
     @RequestMapping(value = "/characters-form", method = RequestMethod.POST)
-    public String guardar(@Valid Personaje personaje, BindingResult result, Model model, SessionStatus status) {
-
+    public String guardar(@RequestParam(name="file", required = false) @Nullable MultipartFile foto, 
+    @Valid Personaje personaje, BindingResult result, Model model, SessionStatus status, RedirectAttributes flash) {
         status.setComplete();
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Formulario de Personaje");
             model.addAttribute("botonSubmit", "Crear Personaje");
             return "characters-form";
+        }
+        if(!foto.isEmpty()){
+            String ruta = "C://Imagenes"; /* esta es la ruta en donde se van a guardar las imagenes que subad */
+            try {
+                byte [] bytes = foto.getBytes();
+                Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
+                personaje.setImagen(foto.getOriginalFilename());
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         personajeService.save(personaje);
         return "redirect:characters";

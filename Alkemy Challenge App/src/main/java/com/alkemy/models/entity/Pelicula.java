@@ -48,6 +48,8 @@ public class Pelicula implements Serializable, Comparable<Pelicula> {
     @ManyToMany(mappedBy = "peliculas")
     List<Personaje> personajes;
 
+    private String imagen;
+
     @Override
     public int compareTo(Pelicula p) {
         return titulo.compareTo(p.getTitulo());
