@@ -15,7 +15,7 @@ public interface IUsuarioService {
     public Usuario findByUserName(String username); 
     public void delete(Long id);
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
 
 
 

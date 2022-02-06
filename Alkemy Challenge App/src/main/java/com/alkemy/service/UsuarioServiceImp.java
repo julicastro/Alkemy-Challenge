@@ -1,58 +1,52 @@
 package com.alkemy.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.alkemy.models.dao.IUsuarioDao;
 import com.alkemy.models.entity.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.alkemy.models.dao.IGeneroDao;
-import com.alkemy.models.dao.IPeliculaDao;
-import com.alkemy.models.entity.Genero;
-import com.alkemy.models.entity.Pelicula;
+import org.springframework.security.core.userdetails.User;
 import com.alkemy.models.entity.Role;
 
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class UsuarioServiceImp implements IUsuarioService {
+@Service("userDetailsService")
+public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
     @Autowired
     private IUsuarioDao usuarioDao;
 
     @Override
-    public void delete(Long id) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public List<Usuario> findAll() {
+    @Transactional
+        public List<Usuario> findAll() {
         return (List<Usuario>) usuarioDao.findAll();
     }
 
     @Override
+    @Transactional
     public Usuario findOne(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return usuarioDao.findById(id).orElse(null);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
+    @Transactional
     public void save(Usuario usuario) {
         usuarioDao.save(usuario);
+    }
 
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        usuarioDao.deleteById(id);
     }
 
     @Override
@@ -90,5 +84,20 @@ public class UsuarioServiceImp implements IUsuarioService {
         return null;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+            Usuario usuario = findByUserName(username);
+            List<GrantedAuthority> permisos = new ArrayList<>();
+            permisos.add(new SimpleGrantedAuthority("ROLE_" + usuario.getRol()));
+            if (usuario.getRol().equals(Role.ADMIN)) {
+                permisos.add(new SimpleGrantedAuthority("ROLE_USER"));
+            }
+            return new User(username, usuario.getPassword(), permisos);
+
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Error");
+        }
+    }
 
 }

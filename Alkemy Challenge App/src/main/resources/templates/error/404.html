@@ -2,11 +2,13 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layouts/layout.html :: head"></head>
 <body>
-    <header th:replace="layouts/layout.html :: header"></header>
+    <header ></header>
 
-    <div>
-        <h1 class="title text-center">Alkemy Challenge</h1>
+    <div class="text-center">
+        <h1 class="title ">Error 404. Pagina no encontrada</h1>
+        <a class="btn btn-info" th:href="@{/}">Regresar a la aplicación</a>
     </div>
+
 
     <footer th:replace="layouts/layout.html :: footer"></footer>
 </html>

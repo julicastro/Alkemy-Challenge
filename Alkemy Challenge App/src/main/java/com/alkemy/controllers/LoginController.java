@@ -17,16 +17,16 @@ public class LoginController {
     }
 
     @PostMapping()
-    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String mail,
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String username,
             @RequestParam(required = false) String logout, Model model) {
         if (error != null) {
             model.addAttribute("error", "Usuario y o contraseña incorrecta");
             return "error";
         }
-        if (mail != null) {
-            model.addAttribute("mail", "Mail incorrecto");
+        if (username != null) {
+            model.addAttribute("username", "username inexistente");
         }
-        return "/";
+        return "/inicio";
     }
 
 }

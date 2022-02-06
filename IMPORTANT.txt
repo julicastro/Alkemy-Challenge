@@ -11,3 +11,6 @@ aplicación me tiraba error debído a restricciones de ID duplicado que no pude 
 Al momento de editar un Personaje, al poder guardar este campo se duplica con los valores nuevos. Lo raro es que esto no ocurre con
 las entidades Género y Películas teniendo en cuenta que el CRUD es practicamente igual. No encontré variaciones en el código sin 
 embargo esto ocurre igual.
+
+Por último, Spring Security no me recupera los usuarios creados y por ende no se loguea. Por ese motivo comenté las restricciones en
+la clase SpringConfigurer. 

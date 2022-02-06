@@ -33,7 +33,6 @@ public class Usuario implements Serializable {
     @NotEmpty
     private String password;
     
-    @NotEmpty
     @Enumerated(EnumType.STRING)
     private Role rol;
 }
