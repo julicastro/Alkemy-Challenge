@@ -4,8 +4,9 @@
 <body>
     <header th:replace="layouts/layout.html :: header"></header>
 
-    <div>
-        <h1 class="title text-center">Alkemy Challenge</h1>
+    <div class="text-center">
+        <h1 class="title ">Alkemy Challenge</h1>
+        <a class="btn btn-info mt-5" th:href="@{/auth/login}">Login Page</a>
     </div>
 
     <footer th:replace="layouts/layout.html :: footer"></footer>

@@ -1,8 +1,5 @@
 package com.alkemy.controllers;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -111,18 +108,19 @@ public class PersonajeController {
             model.addAttribute("botonSubmit", "Crear Personaje");
             return "characters-form";
         }
+        /*
         if(!foto.isEmpty()){
-            String ruta = "C://Imagenes"; /* esta es la ruta en donde se van a guardar las imagenes que subad */
+            String ruta = "C://Imagenes"; 
             try {
                 byte [] bytes = foto.getBytes();
                 Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
                 personaje.setImagen(foto.getOriginalFilename());
 
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
+        */
         personajeService.save(personaje);
         return "redirect:characters";
     }

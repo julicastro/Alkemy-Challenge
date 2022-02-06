@@ -64,7 +64,8 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
     /*
      * en este caso voy utilicé un método "crear" para poder aplicarle más fácil la
-     * encriptación de la contraseña
+     * encriptación de la contraseña. automaticamente se le asignara al usuario nuevo 
+     * el Rol de User.
      */
     @Override
     @Transactional
@@ -77,13 +78,13 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
             usuario.setPassword(encoder.encode(usuario.getPassword()));
             usuario.setRol(Role.USER);
             return usuarioDao.save(usuario);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    /** todo aquel usuario con Role = ADMIN tendrá automaticamente el rol de USER tambien */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
@@ -94,10 +95,11 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
                 permisos.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
             return new User(username, usuario.getPassword(), permisos);
-
         } catch (Exception e) {
             throw new UsernameNotFoundException("Error");
         }
     }
+
+
 
 }

@@ -44,7 +44,7 @@ public class Personaje implements Serializable {
     private String historia;
 
     // @NotEmpty
-    private String imagen;
+    // private String imagen;
 
     @ManyToMany(cascade = CascadeType.ALL )
     @JoinTable(

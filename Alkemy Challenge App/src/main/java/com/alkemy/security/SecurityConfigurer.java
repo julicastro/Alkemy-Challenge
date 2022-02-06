@@ -1,6 +1,5 @@
 package com.alkemy.security;
 
-import com.alkemy.service.IUsuarioService;
 import com.alkemy.service.UsuarioServiceImp;
 
 import org.springframework.beans.factory.annotation.Autowired;

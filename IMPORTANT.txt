@@ -1,13 +1,13 @@
 Detalles y algunos inconvenientes que tuve: 
 
-Con respecto a la relación entre Personaje y Películas, la entidad encargada de manejar la relaciión es Personaje. Solo se puede
+Con respecto a la relación entre Personaje y Películas, la entidad encargada de manejar la relación es Personaje. Solo se puede
 asignar una Película a un Personaje desde el formulario de este último. Lo mismo ocurre con Género. Solo se puede vinculara un Género a
 una Película desde el formulario de Género.
 
-La aplicación presente algunos errores a la hora de editar o liminar algún campo de alguna tabla que esté asociado a otra tabla. Estoy 
+La aplicación presente algunos errores a la hora de editar o eliminar algún campo de alguna tabla que esté asociada a otra tabla. Estoy 
 investigando para saber por qué ocurre esto.
 
-La relación entre Películas y Géneros debería ser de @OneToMany, con el Many del lado del Género. Utilicé @ManyToMamy ya que la
+La relación entre Película y Género debería ser de @OneToMany, con el Many del lado del Género. Utilicé @ManyToMamy ya que la
 aplicación me tiraba error debído a restricciones de ID duplicado que no pude solucionar.
 
 Al momento de editar un Personaje, al poder guardar este campo se duplica con los valores nuevos. Lo raro es que esto no ocurre con
@@ -17,3 +17,5 @@ embargo esto ocurre igual.
 Por último, Spring Security no me recupera los usuarios creados y por ende no se loguea. Por ese motivo comenté las restricciones en
 la clase SpringConfigurer. El usuario con la password encriptada se crea sin problemas. El inconveniente es a la hora de la 
 autenticación.
+
+Algunos templates fueron modificados con respecto a la consigna teniendo en cuenta los errores que tuve.
