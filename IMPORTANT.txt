@@ -1,3 +1,5 @@
+Detalles y algunos inconvenientes que tuve: 
+
 Con respecto a la relación entre Personaje y Películas, la entidad encargada de manejar la relaciión es Personaje. Solo se puede
 asignar una Película a un Personaje desde el formulario de este último. Lo mismo ocurre con Género. Solo se puede vinculara un Género a
 una Película desde el formulario de Género.
@@ -13,4 +15,5 @@ las entidades Género y Películas teniendo en cuenta que el CRUD es practicamen
 embargo esto ocurre igual.
 
 Por último, Spring Security no me recupera los usuarios creados y por ende no se loguea. Por ese motivo comenté las restricciones en
-la clase SpringConfigurer. 
+la clase SpringConfigurer. El usuario con la password encriptada se crea sin problemas. El inconveniente es a la hora de la 
+autenticación.
